@@ -27,7 +27,11 @@ class BasePage:
 
     @allure.step('Подождать пока элемент станет виден')
     def wait_before_assert(self, locator):
-        return WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))   
+        return WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
+
+    @allure.step('Подождать пока элемент станет невидим')
+    def wait_before_invisibility(self, locator):
+        return WebDriverWait(self.driver, 10).until(EC.invisibility_of_element_located(locator))   
 
     @allure.step('Проверить невидимость элемента')
     def check_invisibility(self, locator) -> object:
@@ -59,7 +63,14 @@ class BasePage:
 
     @allure.step('Дождаться появления текста в элементе')
     def wait_for_text_to_be_present_in_element(self, locator, text):
-        WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element(locator, text))               
+        WebDriverWait(self.driver, 15).until(EC.text_to_be_present_in_element(locator, text)) 
+
+    @allure.step('Дождаться смены числа в счетчике')
+    def wait_before_count_value_changed(self, prev_counter_value, main_page):
+        WebDriverWait(self.driver, 20).until(lambda _: int(main_page.get_count_value()) > prev_counter_value)       
+
+
+
 
 
         

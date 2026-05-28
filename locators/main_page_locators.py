@@ -16,4 +16,6 @@ class MainPageLocators:
     PROFILE_BUTTON = By.XPATH, ".//p[text()='Личный Кабинет']"
     ORDER_IDENTIFICATE = (By.XPATH, '//p[text()="идентификатор заказа"]')
     ORDER_ID = (By.CLASS_NAME, "Modal_modal__title_shadow__3ikwq")
+    LOADING_MODAL = (By.CLASS_NAME, "Modal_modal__loading__3534A")
+    MODAL_OVERLAY = (By.CSS_SELECTOR, ".Modal_modal_overlay__x2ZCr")
     

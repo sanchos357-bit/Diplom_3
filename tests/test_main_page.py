@@ -68,9 +68,7 @@ class TestMainPage:
         base_page.go_to_site()
         prev_counter_value = int(main_page.get_count_value())
         main_page.add_filling_to_order()
-
-        wait = WebDriverWait(driver, 20)
-        wait.until(lambda _: int(main_page.get_count_value()) > prev_counter_value)
+        base_page.wait_before_count_value_changed(prev_counter_value, main_page)
 
         actual_value = int(main_page.get_count_value())
         assert actual_value > prev_counter_value

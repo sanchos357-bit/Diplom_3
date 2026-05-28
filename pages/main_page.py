@@ -14,8 +14,7 @@ class MainPage(BasePage):
     
     @allure.step('Нажать на кнопку "Лента Заказов"')
     def click_order_list_button(self):
-        wait = WebDriverWait(self.driver, 10)
-        wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, "Modal_modal__loading__3534A")))
+        self.wait_before_invisibility(MainPageLocators.LOADING_MODAL)
         element = self.find_element(BasePageLocator.ORDERS_LIST_BUTTON)
         return element.click()
     
@@ -61,14 +60,6 @@ class MainPage(BasePage):
         self.wait_for_element_to_be_clickable(MainPageLocators.BUN_INGREDIENT)
         self.wait_before_assert(MainPageLocators.ORDER_BASKET)
         self.drag_and_drop(MainPageLocators.BUN_INGREDIENT, MainPageLocators.ORDER_BASKET)
-
-    @allure.step('Перетащить элемент')
-    def drag_and_drop_on_element(self, locator_one, locator_two):
-        wait = WebDriverWait(self.driver, 10)
-        draggable = wait.until(EC.element_to_be_clickable(locator_one))
-        droppable = wait.until(EC.element_to_be_clickable(locator_two))
-        action_chains = ActionChains(self.driver)
-        action_chains.drag_and_drop(draggable, droppable).perform()   
 
     @allure.step('Кликаем по элементу {locator}')
     def click_on_element(self, locator):
@@ -117,7 +108,7 @@ class MainPage(BasePage):
         locator = MainPageLocators.CLOSE_MODAL_ORDER
         element = self.driver.find_element(*locator)
         self.driver.execute_script("arguments[0].click();", element)
-        WebDriverWait(self.driver, 15).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, ".Modal_modal_overlay__x2ZCr"))) 
+        self.wait_before_invisibility(MainPageLocators.MODAL_OVERLAY)
 
     @allure.step('Получение ORDER_ID')
     def get_with_order_id(self):
